@@ -59,7 +59,7 @@
         }
 
         try {
-          const response = await fetch("/shorten", {
+          const response = await fetch("/.netlify/functions/shortenUrl", {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -70,7 +70,7 @@
           const data = await response.json();
 
           if (response.ok) {
-            const shortUrl = `${window.location.origin}/${data.shortCode}`;
+            const shortUrl = `${window.location.origin}/.netlify/functions/redirect/${data.shortCode}`;
             resultDiv.innerHTML = `
               <div class="success">
                 <i class="fas fa-check-circle"></i>
@@ -89,9 +89,7 @@
             document.getElementById("urlInput").value = "";
             document.getElementById("customCode").value = "";
           } else {
-            resultDiv.innerHTML = `<p class="error"><i class="fas fa-exclamation-circle"></i> ${
-              data.error || "Error shortening URL"
-            }</p>`;
+            resultDiv.innerHTML = `<p class="error"><i class="fas fa-exclamation-circle"></i> ${data.error}</p>`;
           }
         } catch (error) {
           console.error("Error:", error);
