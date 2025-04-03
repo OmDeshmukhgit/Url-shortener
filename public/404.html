@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>404 - URL Not Found</title>
+    <link rel="stylesheet" href="/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <style>
+      .error-container {
+        text-align: center;
+        padding: 50px 20px;
+      }
+
+      .error-icon {
+        font-size: 5rem;
+        color: var(--error-color);
+        margin-bottom: 20px;
+      }
+
+      .error-title {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: var(--text-color);
+      }
+
+      .error-message {
+        font-size: 1.2rem;
+        color: var(--text-light);
+        margin-bottom: 30px;
+      }
+
+      .back-button {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background-color: var(--primary-color);
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+
+      .back-button:hover {
+        background-color: var(--primary-hover);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="error-container">
+        <i class="fas fa-link-slash error-icon"></i>
+        <h1 class="error-title">404 - URL Not Found</h1>
+        <p class="error-message">
+          The shortened URL you're looking for doesn't exist or has been
+          removed.
+        </p>
+        <a href="/" class="back-button">
+          <i class="fas fa-arrow-left"></i> Back to URL Shortener
+        </a>
+      </div>
+    </div>
+  </body>
+</html>

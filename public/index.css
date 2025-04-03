@@ -1,0 +1,489 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  /* Space theme colors */
+  --primary-color: #7289da;
+  --primary-hover: #5c73c7;
+  --success-color: #43b581;
+  --error-color: #f04747;
+  --text-color: #ffffff;
+  --text-light: #b9bbbe;
+  --bg-color: #0a0a0f;
+  --card-bg: rgba(32, 34, 37, 0.7);
+  --form-bg: rgba(47, 49, 54, 0.6);
+  --border-color: rgba(79, 84, 92, 0.3);
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  50% {
+    transform: translateY(-20px) rotate(5deg);
+  }
+}
+
+@keyframes orbit {
+  0% {
+    transform: rotate(0deg) translateX(0) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(0) rotate(-360deg);
+  }
+}
+
+body {
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, sans-serif;
+  line-height: 1.6;
+  background: linear-gradient(to bottom, #0a0a0f 0%, #1a1b2e 100%);
+  color: var(--text-color);
+  padding: 20px;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Create starry background */
+body::before,
+body::after {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+body::before {
+  background-image: radial-gradient(1px 1px at 10% 10%, white 100%, transparent),
+    radial-gradient(1px 1px at 20% 20%, white 100%, transparent),
+    radial-gradient(1px 1px at 30% 30%, white 100%, transparent),
+    radial-gradient(1px 1px at 40% 40%, white 100%, transparent),
+    radial-gradient(2px 2px at 50% 50%, white 100%, transparent),
+    radial-gradient(2px 2px at 60% 60%, white 100%, transparent),
+    radial-gradient(2px 2px at 70% 70%, white 100%, transparent),
+    radial-gradient(2px 2px at 80% 80%, white 100%, transparent),
+    radial-gradient(2px 2px at 90% 90%, white 100%, transparent);
+  background-size: 550px 550px;
+  opacity: 0.3;
+  animation: twinkle 8s infinite;
+}
+
+body::after {
+  background-image: radial-gradient(1px 1px at 15% 15%, white 100%, transparent),
+    radial-gradient(1px 1px at 25% 25%, white 100%, transparent),
+    radial-gradient(1px 1px at 35% 35%, white 100%, transparent),
+    radial-gradient(1px 1px at 45% 45%, white 100%, transparent),
+    radial-gradient(2px 2px at 55% 55%, white 100%, transparent),
+    radial-gradient(2px 2px at 65% 65%, white 100%, transparent),
+    radial-gradient(2px 2px at 75% 75%, white 100%, transparent),
+    radial-gradient(2px 2px at 85% 85%, white 100%, transparent),
+    radial-gradient(2px 2px at 95% 95%, white 100%, transparent);
+  background-size: 500px 500px;
+  opacity: 0.2;
+  animation: twinkle 12s infinite;
+  animation-delay: -4s;
+}
+
+/* Add planets */
+.planet {
+  position: fixed;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.planet-1 {
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle at 30% 30%, #ff6b6b, #845ec2);
+  top: 15%;
+  right: 10%;
+  animation: float 15s ease-in-out infinite;
+  box-shadow: 0 0 50px rgba(255, 107, 107, 0.3);
+}
+
+.planet-2 {
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle at 40% 40%, #4d8076, #2c5364);
+  bottom: 10%;
+  left: 5%;
+  animation: float 20s ease-in-out infinite reverse;
+  box-shadow: 0 0 60px rgba(77, 128, 118, 0.3);
+}
+
+.planet-3 {
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle at 35% 35%, #ffd93d, #ff6b6b);
+  top: 30%;
+  left: 20%;
+  animation: float 12s ease-in-out infinite;
+  box-shadow: 0 0 40px rgba(255, 217, 61, 0.3);
+}
+
+/* Add rings around a planet */
+.planet-2::after {
+  content: "";
+  position: absolute;
+  width: 200px;
+  height: 40px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(-20deg);
+  border-radius: 50%;
+  animation: orbit 20s linear infinite;
+}
+
+.container {
+  width: 100%;
+  max-width: 800px;
+  background-color: var(--card-bg);
+  padding: 30px;
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  position: relative;
+  z-index: 1;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+h1 i {
+  color: var(--primary-color);
+  font-size: 2.8rem;
+  text-shadow: 0 0 10px rgba(114, 137, 218, 0.5);
+}
+
+.subtitle {
+  color: var(--text-light);
+  font-size: 1.1rem;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-bottom: 30px;
+  background-color: var(--form-bg);
+  padding: 20px;
+  border-radius: 12px;
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(5px);
+}
+
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.input-group i {
+  position: absolute;
+  left: 15px;
+  color: var(--text-light);
+}
+
+input {
+  width: 100%;
+  padding: 15px 15px 15px 45px;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  font-size: 1rem;
+  transition: all 0.3s ease;
+  background-color: rgba(32, 34, 37, 0.8);
+  color: var(--text-color);
+}
+
+input::placeholder {
+  color: var(--text-light);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 15px rgba(114, 137, 218, 0.3);
+  background-color: rgba(32, 34, 37, 0.9);
+}
+
+button {
+  padding: 15px;
+  background: linear-gradient(135deg, var(--primary-color), #5c73c7);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 20px rgba(114, 137, 218, 0.4);
+  background: linear-gradient(135deg, #5c73c7, var(--primary-color));
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+.result {
+  margin: 20px 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.success {
+  display: flex;
+  align-items: flex-start;
+  gap: 15px;
+  background-color: rgba(67, 181, 129, 0.1);
+  padding: 20px;
+  border-radius: 12px;
+  color: var(--success-color);
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(67, 181, 129, 0.2);
+}
+
+.success i {
+  font-size: 1.5rem;
+  margin-top: 3px;
+}
+
+.success div {
+  flex: 1;
+}
+
+.success p {
+  margin-bottom: 10px;
+  font-weight: 500;
+}
+
+.shortened-url {
+  display: block;
+  color: var(--primary-color);
+  text-decoration: none;
+  font-weight: 500;
+  word-break: break-all;
+  margin-bottom: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  text-shadow: 0 0 10px rgba(114, 137, 218, 0.3);
+}
+
+.copy-btn {
+  background: linear-gradient(135deg, var(--primary-color), #5c73c7);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.copy-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 0 15px rgba(114, 137, 218, 0.4);
+  background: linear-gradient(135deg, #5c73c7, var(--primary-color));
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(240, 71, 71, 0.1);
+  padding: 15px;
+  border-radius: 12px;
+  color: var(--error-color);
+  border: 1px solid rgba(240, 71, 71, 0.2);
+}
+
+.recent-links {
+  margin-top: 40px;
+}
+
+.recent-links h2 {
+  font-size: 1.5rem;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.recent-links h2 i {
+  color: var(--primary-color);
+}
+
+.links-list ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.links-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  background-color: var(--form-bg);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+}
+
+.links-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+
+.link-info {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.original-url {
+  display: block;
+  color: var(--text-color);
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.no-links {
+  text-align: center;
+  color: var(--text-light);
+  padding: 20px;
+  background-color: var(--form-bg);
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+}
+
+/* Add a tooltip for truncated URLs */
+.original-url:hover,
+.shortened-url:hover {
+  position: relative;
+  cursor: pointer;
+}
+
+.original-url:hover::after,
+.shortened-url:hover::after {
+  content: attr(href);
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  background-color: var(--text-color);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 0.8rem;
+  white-space: normal;
+  max-width: 300px;
+  z-index: 10;
+  box-shadow: var(--shadow);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1rem;
+  }
+
+  .links-list li {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .copy-btn.small {
+    align-self: flex-end;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .container {
+    padding: 15px;
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  input,
+  button {
+    padding: 12px 12px 12px 40px;
+  }
+
+  .input-group i {
+    left: 12px;
+  }
+}

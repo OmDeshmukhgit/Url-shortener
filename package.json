@@ -1,0 +1,24 @@
+{
+  "name": "url-shortener",
+  "version": "1.0.0",
+  "description": "A simple URL shortener built with Node.js",
+  "type": "module",
+  "main": "url.js",
+  "scripts": {
+    "start": "node url.js",
+    "dev": "nodemon url.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "keywords": [
+    "url-shortener",
+    "nodejs",
+    "express"
+  ],
+  "author": "",
+  "license": "MIT"
+}

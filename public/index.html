@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="/index.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Add planets -->
+    <div class="planet planet-1"></div>
+    <div class="planet planet-2"></div>
+    <div class="planet planet-3"></div>
+
+    <div class="container">
+      <header>
+        <h1><i class="fas fa-rocket"></i> URL Shortener</h1>
+        <p class="subtitle">Create short, memorable links in seconds</p>
+      </header>
+
+      <div class="form-container">
+        <div class="input-group">
+          <i class="fas fa-globe"></i>
+          <input type="text" id="urlInput" placeholder="Enter your long URL" />
+        </div>
+        <div class="input-group">
+          <i class="fas fa-pen"></i>
+          <input
+            type="text"
+            id="customCode"
+            placeholder="Custom code (optional)"
+          />
+        </div>
+        <button onclick="shortenUrl()">
+          <i class="fas fa-compress-alt"></i> Shorten URL
+        </button>
+      </div>
+
+      <div id="result" class="result"></div>
+    </div>
+
+    <script>
+      // Get the site URL dynamically
+      const siteUrl = window.location.origin;
+
+      async function shortenUrl() {
+        const url = document.getElementById("urlInput").value;
+        const customCode = document.getElementById("customCode").value;
+        const resultDiv = document.getElementById("result");
+
+        if (!url) {
+          resultDiv.innerHTML =
+            '<p class="error"><i class="fas fa-exclamation-circle"></i> Please enter a URL</p>';
+          return;
+        }
+
+        try {
+          const response = await fetch("/shorten", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ url, shortCode: customCode || null }),
+          });
+
+          const data = await response.json();
+
+          if (response.ok) {
+            const shortUrl = `${window.location.origin}/${data.shortCode}`;
+            resultDiv.innerHTML = `
+              <div class="success">
+                <i class="fas fa-check-circle"></i>
+                <div>
+                  <p>Your shortened URL is ready!</p>
+                  <a href="${shortUrl}" target="_blank" class="shortened-url" title="${shortUrl}">
+                    ${shortUrl}
+                  </a>
+                  <button onclick="copyToClipboard('${shortUrl}')" class="copy-btn">
+                    <i class="fas fa-copy"></i> Copy
+                  </button>
+                </div>
+              </div>`;
+
+            // Clear inputs
+            document.getElementById("urlInput").value = "";
+            document.getElementById("customCode").value = "";
+          } else {
+            resultDiv.innerHTML = `<p class="error"><i class="fas fa-exclamation-circle"></i> ${
+              data.error || "Error shortening URL"
+            }</p>`;
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          resultDiv.innerHTML =
+            '<p class="error"><i class="fas fa-exclamation-circle"></i> Error connecting to server. Please try again.</p>';
+        }
+      }
+
+      function copyToClipboard(text) {
+        navigator.clipboard.writeText(text).then(() => {
+          const copyBtn = document.querySelector(".copy-btn");
+          copyBtn.innerHTML = '<i class="fas fa-check"></i> Copied!';
+          setTimeout(() => {
+            copyBtn.innerHTML = '<i class="fas fa-copy"></i> Copy';
+          }, 2000);
+        });
+      }
+    </script>
+  </body>
+</html>
