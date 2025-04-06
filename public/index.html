@@ -3,7 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>URL Shortener</title>
+    <title>URL Shortener - Create Short, Memorable Links</title>
+
+    <!-- Meta Tags -->
+    <meta
+      name="description"
+      content="Create short, memorable URLs instantly with our free URL shortener. Perfect for sharing links on social media and messaging platforms."
+    />
+    <meta
+      name="keywords"
+      content="URL shortener, link shortener, short URLs, custom URLs, free URL shortener"
+    />
+    <meta name="author" content="Your Name" />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://your-url-shortener.netlify.app/" />
+    <meta
+      property="og:title"
+      content="URL Shortener - Create Short, Memorable Links"
+    />
+    <meta
+      property="og:description"
+      content="Create short, memorable URLs instantly with our free URL shortener. Perfect for sharing links on social media and messaging platforms."
+    />
+    <meta
+      property="og:image"
+      content="https://your-url-shortener.netlify.app/images/rocket.png"
+    />
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image" />
+    <meta
+      property="twitter:url"
+      content="https://your-url-shortener.netlify.app/"
+    />
+    <meta
+      property="twitter:title"
+      content="URL Shortener - Create Short, Memorable Links"
+    />
+    <meta
+      property="twitter:description"
+      content="Create short, memorable URLs instantly with our free URL shortener. Perfect for sharing links on social media and messaging platforms."
+    />
+    <meta
+      property="twitter:image"
+      content="https://your-url-shortener.netlify.app/images/rocket.png"
+    />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/rocket.png" />
+    <link rel="apple-touch-icon" href="/images/rocket.png" />
+
     <link rel="stylesheet" href="/index.css" />
     <link
       rel="stylesheet"
@@ -57,6 +108,13 @@
             '<p class="error"><i class="fas fa-exclamation-circle"></i> Please enter a URL</p>';
           return;
         }
+
+        // Show loading indicator
+        resultDiv.innerHTML = `
+          <div class="loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Shortening your URL...</p>
+          </div>`;
 
         try {
           const response = await fetch("/.netlify/functions/shortenUrl", {
